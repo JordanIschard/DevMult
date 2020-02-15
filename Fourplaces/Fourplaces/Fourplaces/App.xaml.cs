@@ -1,12 +1,13 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Storm.Mvvm;
 
 namespace Fourplaces
 {
-    public partial class App : Application
+    public partial class App : MvvmApplication
     {
-        public App()
+        public App():base(() => new LoginPage())
         {
             InitializeComponent();
 
