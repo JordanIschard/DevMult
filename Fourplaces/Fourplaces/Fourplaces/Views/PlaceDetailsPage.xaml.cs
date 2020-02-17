@@ -1,15 +1,13 @@
 ﻿using Xamarin.Forms.Xaml;
-using Fourplaces.ViewModels;
 
 namespace Fourplaces.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage
+    public partial class PlaceDetailsPage
     {
-        public LoginPage()
+        public PlaceDetailsPage()
         {
             InitializeComponent();
-            BindingContext = new LoginViewModel();
         }
     }
 }

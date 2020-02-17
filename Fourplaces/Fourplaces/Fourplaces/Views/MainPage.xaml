@@ -4,10 +4,32 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mvvm="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
-             mc:Ignorable="d"
-             x:Class="Fourplaces.MainPage">
+                      xmlns:local="clr-namespace:Fourplaces.ViewModels"
+                      mc:Ignorable="d"
+             x:Class="Fourplaces.Views.MainPage">
+    
+    <mvvm:BaseContentPage.Resources>
+        <local:IdToImageConverter x:Key="IdToImageConverter"/>
+    </mvvm:BaseContentPage.Resources>
 
-    <ListView ItemsSource="{Binding ListPlace}"  ItemSelected="OnListViewItemSelected" ItemTapped="OnListViewItemTapped">
-    </ListView>
-   
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Places"/>
+        <ToolbarItem Text="Sign out" Command="{Binding SignOut}" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <ListView ItemsSource="{Binding ListPlace}" ItemTapped="OnListViewItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Text="{Binding Title}"  
+                               Detail="{Binding Description}" 
+                               ImageSource="{Binding ImageId,Converter={StaticResource IdToImageConverter}}" 
+                               TextColor="CadetBlue"
+                               DetailColor="LightGray"
+                               />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ScrollView>
+
 </mvvm:BaseContentPage>

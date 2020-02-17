@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Storm.Mvvm;
+using Fourplaces.Views;
 
 namespace Fourplaces
 {
@@ -10,8 +11,6 @@ namespace Fourplaces
         public App():base(() => new LoginPage())
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
         }
 
         protected override void OnStart()

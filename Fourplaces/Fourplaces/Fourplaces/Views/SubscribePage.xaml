@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mvvm:BaseContentPage
+    xmlns:mvvm="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms" 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Fourplaces.Views.SubscribePage">
+
+    <mvvm:BaseContentPage.Resources>
+        <Color x:Key="fontColor">Black</Color>
+    </mvvm:BaseContentPage.Resources>
+
+    <mvvm:BaseContentPage.ToolbarItems>
+        <ToolbarItem Text="Creation"/>
+        <ToolbarItem Command="{Binding Close}" Text="Quit" />
+    </mvvm:BaseContentPage.ToolbarItems>
+    
+    <StackLayout Padding="10" >
+        <Label Text="Create your account" 
+               TextColor="{StaticResource fontColor}" 
+               HorizontalOptions="CenterAndExpand"  
+               FontSize="Title"/>
+
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Entry Text="{Binding Email}" 
+                   TextColor="{StaticResource fontColor}" 
+                   Placeholder="Email" 
+                   HorizontalOptions="FillAndExpand" />
+
+            <Entry Text="{Binding FirstName}" 
+                   TextColor="{StaticResource fontColor}" 
+                   Placeholder="Firstname" 
+                   HorizontalOptions="FillAndExpand" />
+
+            <Entry Text="{Binding LastName}" 
+                   TextColor="{StaticResource fontColor}" 
+                   Placeholder="Lastname" 
+                   HorizontalOptions="FillAndExpand" />
+
+            <Entry Text="{Binding Password}" 
+                   TextColor="{StaticResource fontColor}" 
+                   Placeholder="Password" 
+                   HorizontalOptions="FillAndExpand"  
+                   IsPassword="True"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical" >
+            <Button Text="Create" Command="{Binding Create}" BackgroundColor="LightGreen"/>
+            <Button Text="Cancel" Command="{Binding Cancel}" BackgroundColor="LightSalmon"/>
+        </StackLayout>
+    </StackLayout>
+    
+</mvvm:BaseContentPage>

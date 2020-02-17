@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fourplaces.ViewModels
+namespace Fourplaces.Model
 {
     static class Path
     {

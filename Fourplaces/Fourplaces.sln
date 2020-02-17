@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fourplaces.Android", "Fourp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fourplaces.iOS", "Fourplaces\Fourplaces.iOS\Fourplaces.iOS.csproj", "{E3EA4DD8-F1E8-4027-ABC6-E3F30EE41AD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fourplaces", "Fourplaces\Fourplaces\Fourplaces.csproj", "{142C432B-3F39-432B-8B22-DF345ECA3B4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fourplaces", "Fourplaces\Fourplaces\Fourplaces.csproj", "{142C432B-3F39-432B-8B22-DF345ECA3B4C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{415687A4-35FB-476B-AD19-C3517565A619}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

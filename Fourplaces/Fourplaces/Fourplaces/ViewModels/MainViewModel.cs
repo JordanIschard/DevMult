@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Common.Api.Dtos;
+using Fourplaces.Model;
+using Fourplaces.Views;
 using Storm.Mvvm;
 using TD.Api.Dtos;
-
+using Xamarin.Forms;
 
 namespace Fourplaces.ViewModels
 {
     class MainViewModel : ViewModelBase
     {
-        private List<PlaceItemSummary> __listplace;
+        private List<PlaceItemSummary> __listplace = new List<PlaceItemSummary>();
 
         public List<PlaceItemSummary> ListPlace    
         {
@@ -20,33 +23,61 @@ namespace Fourplaces.ViewModels
             set => SetProperty(ref __listplace, value);
         }
 
+        public ICommand SignOut { get; }
+
         public MainViewModel()
         {
-            Task<List<PlaceItemSummary>> res = recupPlaces();
+            //Debug.WriteLine("Start to instance MainViewModel");
 
-            if (res.IsCompleted)
-            {
-                ListPlace = res.Result;
-            }
+            recupPlaces();
+            SignOut = new Command(Disconnect);
+
+            //Debug.WriteLine("Finish to instance MainViewModel");
         }
 
-        public async Task<List<PlaceItemSummary>> recupPlaces()
+        private void Disconnect(object _)
         {
+            Login login = Login.GetInstance();
+            login.Clear();
+            NavigationService.PopAsync();
+        }
+
+        public async void showDetails(PlaceItemSummary placeItemSummary)
+        {
+            PlaceDetailsPage detailsPage = new PlaceDetailsPage();
+            detailsPage.BindingContext = new PlaceDetailsViewModel(placeItemSummary.Id);
+            await NavigationService.PushAsync(detailsPage);
+        }
+
+        public async void recupPlaces()
+        {
+            //Debug.WriteLine("Start to try recup places");
             ApiClient apiClient = new ApiClient();
+
+            //Debug.WriteLine("Client initialized");
 
             HttpResponseMessage response = await apiClient.Execute(HttpMethod.Get, Path.PLACES);
 
+            //Debug.WriteLine("Request GET Places done : " + response.StatusCode);
 
-            if (response.IsSuccessStatusCode)
+            Response<List<PlaceItemSummary>> res = await apiClient.ReadFromResponse<Response<List<PlaceItemSummary>>>(response);
+
+            /*Debug.WriteLine("List : ");
+            foreach (PlaceItemSummary itemSummary in res.Data)
             {
-                Response<List<PlaceItemSummary>> res = await apiClient.ReadFromResponse<Response<List<PlaceItemSummary>>>(response);
+                Debug.WriteLine("List : " + itemSummary.ToString());
+            }*/
 
-                return res.Data;
+            
 
-
+            if (res.IsSuccess)
+            {
+                //Debug.WriteLine("Places recup");
+                ListPlace = res.Data;
             }
+     
+              
 
-            return new List<PlaceItemSummary>();
         }
 
 

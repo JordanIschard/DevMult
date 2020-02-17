@@ -5,16 +5,55 @@
              xmlns:mvvm="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Fourplaces.LoginPage">
+             x:Class="Fourplaces.Views.LoginPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Login" />
+        <ToolbarItem Text="Quit" Command="{Binding Close}"/>
+    </ContentPage.ToolbarItems>
 
     <Frame>
-        <StackLayout VerticalOptions="CenterAndExpand">
-            <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+        
 
+        <StackLayout Padding="10">
 
-            <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>    
-            
-            <Button Command ="{Binding SubmitCommand}" Text ="Login" HorizontalOptions = "FillAndExpand" />
+            <StackLayout>
+                <Label Text="Welcome !" 
+                       HorizontalOptions="CenterAndExpand" 
+                       FontSize="Title"
+                       TextColor="Black"/>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding Result}" 
+                       TextColor="{Binding Color}" 
+                       HorizontalOptions="Center"/>
+
+                <Entry x:Name="Email" 
+                       Text="{Binding Email}" 
+                       Placeholder="Email" 
+                       VerticalOptions="CenterAndExpand"
+                       TextColor="Black"/>
+                       
+
+                <Entry x:Name="Password"  
+                       IsPassword="True" 
+                       Text="{Binding Password}" 
+                       Placeholder="Password" 
+                       VerticalOptions="CenterAndExpand"
+                       TextColor="Black"/>
+            </StackLayout>
+
+            <StackLayout>
+                <Button Command ="{Binding SubmitCommand}" 
+                        Text ="Login" 
+                        HorizontalOptions = "FillAndExpand"
+                        BackgroundColor="LightGreen"/>
+                <Button Command="{Binding NewUser}" 
+                        Text="New User" 
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="AliceBlue"/>
+            </StackLayout>
         </StackLayout>
     </Frame>
 

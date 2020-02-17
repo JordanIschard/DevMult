@@ -21,5 +21,11 @@ namespace TD.Api.Dtos
 		
 		[JsonProperty("longitude")]
 		public double Longitude { get; set; }
+
+		override
+		public string ToString()
+		{
+			return "Id :" + this.Id + " Title " + this.Title;
+		}
 	}
 }

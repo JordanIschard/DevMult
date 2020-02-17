@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mvvm:BaseContentPage
+    xmlns:mvvm="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms" 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Fourplaces.ViewModels"
+    mc:Ignorable="d"
+             x:Class="Fourplaces.Views.PlaceDetailsPage">
+
+    <mvvm:BaseContentPage.Resources>
+        <local:IdToImageConverter x:Key="IdToImageConverter"/>
+        <local:AuthorToStringConverter x:Key="AuthorToStringConverter"/>
+        <local:AuthorToImageConverter x:Key="AuthorToImageConverter"/>
+    </mvvm:BaseContentPage.Resources>
+
+    <mvvm:BaseContentPage.ToolbarItems>
+        <ToolbarItem Text="Details"/>
+        <ToolbarItem Text="Quit" Command="{Binding Close}"/>
+    </mvvm:BaseContentPage.ToolbarItems>
+
+    <StackLayout Padding="20" >
+        <Label Text="{Binding Title}" 
+               HorizontalOptions="CenterAndExpand"
+               FontSize="Title"
+               TextColor="Black"/>
+
+        <Image Source="{Binding IdImage,Converter={StaticResource IdToImageConverter}}" 
+               VerticalOptions="CenterAndExpand"/>
+
+        <Label Text="{Binding Description}" 
+               VerticalOptions="CenterAndExpand"
+               HorizontalTextAlignment="Center"/>
+
+        <ListView ItemsSource="{Binding List}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell  ImageSource="{Binding Author, Converter={StaticResource AuthorToImageConverter}}" 
+                                Text="{Binding Author,Converter={StaticResource AuthorToStringConverter}}" 
+                                Detail="{Binding Text}"
+                                TextColor="CadetBlue"
+                                />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</mvvm:BaseContentPage>
