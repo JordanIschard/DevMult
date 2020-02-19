@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Common.Api.Dtos;
 using Fourplaces.Model;
 using Fourplaces.Views;
-using Storm.Mvvm;
 using TD.Api.Dtos;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Fourplaces.ViewModels
 {
-    class MainViewModel : ViewModelBase
+    class MainViewModel : ViewModelGen
     {
         private List<PlaceItemSummary> __listplace = new List<PlaceItemSummary>();
+
+        private UserItem __me;
+
+        public UserItem Me { get => __me; set => SetProperty(ref __me, value); }
 
         public List<PlaceItemSummary> ListPlace    
         {
@@ -25,14 +27,31 @@ namespace Fourplaces.ViewModels
 
         public ICommand SignOut { get; }
 
+        public ICommand Add { get; }
+
+        public ICommand Show { get; }
+
         public MainViewModel()
         {
             //Debug.WriteLine("Start to instance MainViewModel");
-
+            RecupUser();
             recupPlaces();
+
+            Show = new Command(GoToProfileAsync);
             SignOut = new Command(Disconnect);
+            Add = new Command(AddingPlace);
 
             //Debug.WriteLine("Finish to instance MainViewModel");
+        }
+
+        private async void GoToProfileAsync(object _)
+        {
+           await NavigationService.PushAsync(new ProfilePage());
+        }
+
+        private void AddingPlace(object obj)
+        {
+            throw new NotImplementedException();
         }
 
         private void Disconnect(object _)

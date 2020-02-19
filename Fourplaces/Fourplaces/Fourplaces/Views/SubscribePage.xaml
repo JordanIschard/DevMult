@@ -13,7 +13,6 @@
     </mvvm:BaseContentPage.Resources>
 
     <mvvm:BaseContentPage.ToolbarItems>
-        <ToolbarItem Text="Creation"/>
         <ToolbarItem Command="{Binding Close}" Text="Quit" />
     </mvvm:BaseContentPage.ToolbarItems>
     
@@ -24,9 +23,12 @@
                FontSize="Title"/>
 
         <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Text="{Binding Result}" TextColor="{Binding Color}"/>
+
             <Entry Text="{Binding Email}" 
                    TextColor="{StaticResource fontColor}" 
                    Placeholder="Email" 
+                   Keyboard="Email"
                    HorizontalOptions="FillAndExpand" />
 
             <Entry Text="{Binding FirstName}" 
@@ -44,6 +46,10 @@
                    Placeholder="Password" 
                    HorizontalOptions="FillAndExpand"  
                    IsPassword="True"/>
+        <!--
+            <Image x:Name="PhotoImage" Source="{Binding Image}"  />
+            <Button x:Name="CameraButton" Text="Take Photo" Command="{Binding TakePhoto}" />
+            -->
         </StackLayout>
 
         <StackLayout Orientation="Vertical" >

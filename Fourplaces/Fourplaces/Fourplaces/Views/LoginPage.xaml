@@ -8,53 +8,49 @@
              x:Class="Fourplaces.Views.LoginPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Login" />
         <ToolbarItem Text="Quit" Command="{Binding Close}"/>
     </ContentPage.ToolbarItems>
 
-    <Frame>
-        
+    <StackLayout Padding="10">
 
-        <StackLayout Padding="10">
-
-            <StackLayout>
-                <Label Text="Welcome !" 
+        <StackLayout>
+            <Label Text="Welcome !" 
                        HorizontalOptions="CenterAndExpand" 
                        FontSize="Title"
                        TextColor="Black"/>
-            </StackLayout>
+        </StackLayout>
 
-            <StackLayout VerticalOptions="CenterAndExpand">
-                <Label Text="{Binding Result}" 
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Text="{Binding Result}" 
                        TextColor="{Binding Color}" 
                        HorizontalOptions="Center"/>
 
-                <Entry x:Name="Email" 
+            <Entry x:Name="Email" 
                        Text="{Binding Email}" 
                        Placeholder="Email" 
+                       Keyboard="Email"
                        VerticalOptions="CenterAndExpand"
                        TextColor="Black"/>
-                       
 
-                <Entry x:Name="Password"  
+
+            <Entry x:Name="Password"  
                        IsPassword="True" 
                        Text="{Binding Password}" 
                        Placeholder="Password" 
                        VerticalOptions="CenterAndExpand"
                        TextColor="Black"/>
-            </StackLayout>
+        </StackLayout>
 
-            <StackLayout>
-                <Button Command ="{Binding SubmitCommand}" 
+        <StackLayout>
+            <Button Command ="{Binding SubmitCommand}" 
                         Text ="Login" 
                         HorizontalOptions = "FillAndExpand"
                         BackgroundColor="LightGreen"/>
-                <Button Command="{Binding NewUser}" 
+            <Button Command="{Binding NewUser}" 
                         Text="New User" 
                         HorizontalOptions="FillAndExpand"
                         BackgroundColor="AliceBlue"/>
-            </StackLayout>
         </StackLayout>
-    </Frame>
+    </StackLayout>
 
 </mvvm:BaseContentPage>

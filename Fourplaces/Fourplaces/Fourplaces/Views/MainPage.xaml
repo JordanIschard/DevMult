@@ -13,7 +13,9 @@
     </mvvm:BaseContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Places"/>
+        <ToolbarItem Text="{Binding User.Firstname}" Command="{Binding Profile}"/>
+        <ToolbarItem Text="Add" Command="{Binding Add}" />
+        <ToolbarItem Text="Profil" Command="{Binding Show}"/>
         <ToolbarItem Text="Sign out" Command="{Binding SignOut}" />
     </ContentPage.ToolbarItems>
 

@@ -1,33 +1,77 @@
 ﻿using Common.Api.Dtos;
 using Fourplaces.Model;
+using Fourplaces.ViewModels;
 using Storm.Mvvm;
-using System.Collections.Generic;
+using System;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
+using System.Windows.Input;
 using TD.Api.Dtos;
+using Xamarin.Forms;
 
 namespace Fourplaces.Views
 {
-    internal class PlaceDetailsViewModel : ViewModelBase
-    {
+    internal class PlaceDetailsViewModel : ViewModelGen
+    { 
 
-        private int __idImage;
+        private PlaceItem __placeItem;
 
-        private string __description;
+        private int __placeId;
 
-        private string __title;
+        private string __comment;
 
-        private List<CommentItem> __list;
+        public PlaceItem Place { get => __placeItem; set => SetProperty(ref __placeItem, value); }
+
+        public string Comment { get => __comment; set => SetProperty(ref __comment, value); }
+
+        public ICommand Send { get; }
 
         public PlaceDetailsViewModel(int id)
         {
+            __placeId = id;
+            RecupUser();
             recupDetails(id);
+            Return = new Command(Pop);
+            Send = new Command(SendMessage);
         }
 
-        public string Title { get => __title; set => SetProperty(ref __title, value); }
-        public string Description { get => __description; set => SetProperty(ref __description, value); }
-        public int IdImage { get => __idImage; set => SetProperty(ref __idImage, value); }
-        public List<CommentItem> List { get => __list; set => SetProperty(ref __list, value); }
+        private async void SendMessage(object _)
+        {
+            CreateCommentRequest create = new CreateCommentRequest();
+            create.Text = Comment;
+
+            ApiClient apiClient = new ApiClient();
+
+            HttpResponseMessage responseMessage = await apiClient.Execute(HttpMethod.Post, Path.PLACES + "/" + __placeId + "/comments", create,RecupAccessToken());
+
+            switch (responseMessage.StatusCode)
+            {
+                case HttpStatusCode.OK: 
+                    Result = "Comment Sended !";
+                    Color = "Green";
+                    recupDetails(__placeId);
+                    break;
+                case HttpStatusCode.BadRequest:
+                    Result = "Bad Request";
+                    Color = "Red";
+                    break;
+                case HttpStatusCode.NotFound:
+                    Result = "Not Found";
+                    Color = "Red";
+                    break;
+            }
+
+            Comment = "";
+
+        }
+
+        private void Pop(object _)
+        {
+            NavigationService.PopAsync();
+        }
+
+        public ICommand Return { get; }
 
         public async void recupDetails(int id)
         {
@@ -45,12 +89,7 @@ namespace Fourplaces.Views
 
             if (res.IsSuccess)
             {
-                PlaceItem place = res.Data;
-                Debug.WriteLine("Details recup");
-                Title = place.Title;
-                Description = place.Description;
-                IdImage = place.ImageId;
-                List = place.Comments;
+                Place = res.Data;
             }
         }
     }

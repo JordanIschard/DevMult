@@ -1,7 +1,8 @@
 ﻿using Common.Api.Dtos;
 using Fourplaces.Model;
 using Fourplaces.Views;
-using Storm.Mvvm;
+using Plugin.Permissions.Abstractions;
+using System;
 using System.Net.Http;
 using System.Windows.Input;
 using TD.Api.Dtos;
@@ -9,7 +10,7 @@ using Xamarin.Forms;
 
 namespace Fourplaces.ViewModels
 {
-    class SubscribeViewModel : ViewModelBase
+    class SubscribeViewModel : ViewModelGen
     {
         private string __email;
         private string __lname;
@@ -42,9 +43,42 @@ namespace Fourplaces.ViewModels
 
         public ICommand Create { get; }
 
+        public ICommand Cancel { get;  }
+
+       // public ICommand TakePhoto { get;  }
+
+        //public ImageSource Image { get; set; }
+
         public SubscribeViewModel()
         {
             Create = new Command(Creation);
+            Cancel = new Command(Canceled);
+            //TakePhoto = new Command(TakingPhotoAsync);
+
+        }
+
+        /*
+        private async void TakingPhotoAsync(object _)
+        {
+            Permission[] permissions = { Permission.Camera, Permission.Storage };
+
+
+            await Plugin.Media.CrossMedia.Current.Initialize();
+
+            await Plugin.Permissions.CrossPermissions.Current.RequestPermissionsAsync(permissions[0]);
+            await Plugin.Permissions.CrossPermissions.Current.RequestPermissionsAsync(permissions[1]);
+
+            PermissionStatus permissionStatus = await Plugin.Permissions.CrossPermissions.Current.CheckPermissionStatusAsync(permissions[0]);
+
+            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+            if (photo != null)
+                Image = ImageSource.FromStream(() => { return photo.GetStream(); });
+        }*/
+
+        private void Canceled(object _)
+        {
+            NavigationService.PopAsync();
         }
 
         private async void Creation(object _)
@@ -63,11 +97,23 @@ namespace Fourplaces.ViewModels
 
             if (result.IsSuccess)
             {
+                Result = "Creation successful !";
+                Color = "Green";
+
                 Login login = Login.GetInstance();
                 login.Add("at", result.Data.AccessToken);
                 login.Add("rt", result.Data.RefreshToken);
 
                 await NavigationService.PushAsync(new MainPage());
+            }
+            else
+            {
+                Result = "Creation Failed !";
+                Color = "Red";
+                Email = "";
+                LastName = "";
+                FirstName = "";
+                Password = "";
             }
         }
     }

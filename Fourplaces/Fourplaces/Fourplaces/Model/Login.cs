@@ -31,6 +31,10 @@ namespace Fourplaces.Model
             {
                 login.Add(key, value);
             }
+            else
+            {
+                login[key] = value;
+            }
         }
 
         public string Get(string key)

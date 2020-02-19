@@ -1,40 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Windows.Input;
 using Common.Api.Dtos;
 using Fourplaces.Model;
 using Fourplaces.Views;
-using Storm.Mvvm;
 using TD.Api.Dtos;
 using Xamarin.Forms;
 
 namespace Fourplaces.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelGen
     {
         private string __email;
         private string __pwd;
-        private string __result;
-        private string __color;
 
         public string Email
         {
             get => __email;
             set => SetProperty(ref __email, value);
-        }
-
-        public string Result
-        {
-            get => __result;
-            set => SetProperty(ref __result, value);
-        }
-
-        public string Color
-        {
-            get => __color;
-            set => SetProperty(ref __color, value);
         }
 
         public string Password
@@ -105,7 +87,7 @@ namespace Fourplaces.ViewModels
 
         private void Quit(object _)
         {
-            Application.Current.Quit(); 
+           
         }
 
         private async void Subscribe(object _)

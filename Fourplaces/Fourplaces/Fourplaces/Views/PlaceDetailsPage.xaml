@@ -16,24 +16,24 @@
     </mvvm:BaseContentPage.Resources>
 
     <mvvm:BaseContentPage.ToolbarItems>
-        <ToolbarItem Text="Details"/>
-        <ToolbarItem Text="Quit" Command="{Binding Close}"/>
+        <ToolbarItem Text="Return" Command="{Binding Return}"/>
     </mvvm:BaseContentPage.ToolbarItems>
 
     <StackLayout Padding="20" >
-        <Label Text="{Binding Title}" 
+        <Label Text="{Binding Place.Title}" 
                HorizontalOptions="CenterAndExpand"
                FontSize="Title"
                TextColor="Black"/>
 
-        <Image Source="{Binding IdImage,Converter={StaticResource IdToImageConverter}}" 
+        <Image Source="{Binding Place.ImageId,Converter={StaticResource IdToImageConverter}}" 
                VerticalOptions="CenterAndExpand"/>
 
-        <Label Text="{Binding Description}" 
+        <Label Text="{Binding Place.Description}" 
                VerticalOptions="CenterAndExpand"
                HorizontalTextAlignment="Center"/>
 
-        <ListView ItemsSource="{Binding List}" >
+        
+        <ListView ItemsSource="{Binding Place.Comments}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ImageCell  ImageSource="{Binding Author, Converter={StaticResource AuthorToImageConverter}}" 
@@ -44,6 +44,13 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <StackLayout Orientation="Horizontal">
+            <Entry Text="{Binding Comment}"
+                   Placeholder="Enter a comment" 
+                   HorizontalOptions="FillAndExpand"/>
+            <Button Text="Send" Command="{Binding Send}"/>
+        </StackLayout>
     </StackLayout>
 
 </mvvm:BaseContentPage>
